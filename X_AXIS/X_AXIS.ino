@@ -4,33 +4,33 @@
  
  */
 
-int r1 = 13;
-int r2 = 12;
-int r3 = 11;
-int r4 = 10;
+int xr1 = 36;
+int xr2 = 34;
+int xr3 = 32;
+int xr4 = 30;
 
 // the setup routine runs once when you press reset:
 void setup() {                
   // initialize the digital pin as an output.
-  pinMode(r1, OUTPUT);
-  pinMode(r2, OUTPUT);
-  pinMode(r3, OUTPUT);
-  pinMode(r4, OUTPUT);
+  pinMode(xr1, OUTPUT);
+  pinMode(xr2, OUTPUT);
+  pinMode(xr3, OUTPUT);
+  pinMode(xr4, OUTPUT);
   
 }
 
 // the loop routine runs over and over again forever:
 void loop() {
-  digitalWrite(r1, HIGH);   // FORWARD TURN ON  
-  digitalWrite(r4,HIGH);
+  digitalWrite(xr1, HIGH);   // FORWARD TURN ON  
+  digitalWrite(xr2,HIGH);
   delay(4000);               //
-  digitalWrite(r1, LOW);   // FORWARD TURN OFF
-  digitalWrite(r4,LOW);
+  digitalWrite(xr1, LOW);   // FORWARD TURN OFF
+  digitalWrite(xr2,LOW);
   delay(100);
-  digitalWrite(r2, HIGH);  // REVERSE TURN ON
-  digitalWrite(r3, HIGH);
+  digitalWrite(xr3, HIGH);  // REVERSE TURN ON
+  digitalWrite(xr4, HIGH);
   delay(3000);               // wait for a second
-  digitalWrite(r2, LOW);  // REVERSE TURN ON
-  digitalWrite(r3, LOW);
+  digitalWrite(xr3, LOW);  // REVERSE TURN ON
+  digitalWrite(xr4, LOW);
   delay(100);               // wait for a second
 }

@@ -7,34 +7,34 @@
  */
 
 
-int r1 = 44; // relay fwd 
-int r2 = 42; // relay back
-int r3 = 40; // relay back
-int r4 = 38; // relay fwd
+int gr1 = 44; // relay fwd 
+int gr2 = 42; // relay back
+int gr3 = 40; // relay back
+int gr4 = 38; // relay fwd
 
 // the setup routine runs once when you press reset:
 void setup() {                
   // initialize the digital pin as an output.
-  pinMode(r1, OUTPUT);
-  pinMode(r2, OUTPUT);
-  pinMode(r3, OUTPUT);
-  pinMode(r4, OUTPUT);
+  pinMode(gr1, OUTPUT);
+  pinMode(gr2, OUTPUT);
+  pinMode(gr3, OUTPUT);
+  pinMode(gr4, OUTPUT);
   
 }
 
 // the loop routine runs over and over again forever:
 void loop() {
-  digitalWrite(r1, HIGH);  // REVERSE TURN ON
-  digitalWrite(r2, HIGH);
-  delay(8000);               // wait for a second
-  digitalWrite(r1, LOW);  // REVERSE TURN OFF
-  digitalWrite(r2, LOW);
+  digitalWrite(gr1, HIGH);  // OUTER TURN ON
+  digitalWrite(gr2, HIGH);
+  delay(3000);               // wait for a second
+  digitalWrite(gr1, LOW);  // Outer TURN OFF
+  digitalWrite(gr2, LOW);
   delay(100);               // wait for a second
-  digitalWrite(r3, HIGH);   // FORWARD TURN ON  
-  digitalWrite(r4,HIGH);
-  delay(8000);               //
-  digitalWrite(r3, LOW);   // FORWARD TURN OFF
-  digitalWrite(r4,LOW);
+  digitalWrite(gr3, HIGH);   // invard TURN ON  
+  digitalWrite(gr4,HIGH);
+  delay(3000);               //
+  digitalWrite(gr3, LOW);   // invard TURN OFF
+  digitalWrite(gr4,LOW);
   delay(100);
   
 }

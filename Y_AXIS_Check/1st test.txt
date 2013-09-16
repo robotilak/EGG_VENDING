@@ -45,16 +45,16 @@ void loop() {
   
 // Y axis move down   
 // The sensor inside the gripper is sensing looking for a egg tray
-  int gripper_egg1 = analogRead(A11); // gripper proximity sensor
+  int gripper_egg1 = analogRead(A12); // gripper proximity sensor
   float gripper_egg = gripper_egg1 * (5.0 / 1023.0);
   Serial.println(gripper_egg);
  
  
-  if (gripper_egg>0)
+  if (gripper_egg>3)
   {
   digitalWrite(yr3, HIGH);   // DOWN TURN ON  
   digitalWrite(yr4,HIGH);
-  delay(500);               //
+  delay(300);               //
   digitalWrite(yr3, LOW);   // DOWN TURN OFF
   digitalWrite(yr4,LOW);
   delay(500);
@@ -62,14 +62,14 @@ void loop() {
  
  
  // Initilise and grip the egg 
- if (gripper_egg<1)
+ else 
  { // timing to be tuned better 
   digitalWrite(yr3, LOW);   // DOWN TURN OFF
   digitalWrite(yr4,LOW);
   delay(1000);
   digitalWrite(gr3, HIGH);  // inverse TURN ON
   digitalWrite(gr4, HIGH);
-  delay(4000);               // wait for a second
+  delay(6000);               // wait for a second
   digitalWrite(gr3, LOW);  // REVERSE TURN OFF
   digitalWrite(gr4, LOW);
   delay(4000);               // wait for a second
