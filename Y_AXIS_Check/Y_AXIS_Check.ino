@@ -1,4 +1,4 @@
-/*
+ /*
   EGG eVENDING MACHINE CODE FOR Y AXIS TRIAL 1 
  CC NARRENCER , TILAK , CPDO , DENNIS ASHOK
  
@@ -37,24 +37,41 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
+
   // Assuming the gripper is going to be on the Left First 
-// Write the left proximity code   
+
+// Write the left X   
   int left_p_grip1 = analogRead(A10); //left position gripper proximity sensor
   float left_p_grip = left_p_grip1 * (5.0 / 1023.0);
   Serial.println(left_p_grip);   
   
 // Y axis move down   
-// The sensor inside the gripper is sensing looking for a egg tray
-  int gripper_egg1 = analogRead(A11); // gripper proximity sensor
+
+// Inside gripper
+  int gripper_egg1 = analogRead(A12); // inside gripper
   float gripper_egg = gripper_egg1 * (5.0 / 1023.0);
   Serial.println(gripper_egg);
  
+ // GRIPPER CENTER 
+  int gripper_c = analogRead(A8); // gripper center
+  float gripper_center = gripper_c * (5.0 / 1023.0);
+  Serial.println(gripper_center);
+  
+  // TOP SENSOR
+  int top_sensor1 = analogRead(A13); // top_sensor
+  float top_sensor = top_sensor1 * (5.0 / 1023.0);
+  Serial.println(top_sensor);
+  
+   // TOP SENSOR
+  int con_start1 = analogRead(A2); // otop_sensor
+  float con_start = con_start1 * (5.0 / 1023.0);
+  Serial.println(con_start);
  
-  if (gripper_egg>0)
+  if (gripper_egg>3)
   {
   digitalWrite(yr3, HIGH);   // DOWN TURN ON  
   digitalWrite(yr4,HIGH);
-  delay(500);               //
+  delay(200);               //
   digitalWrite(yr3, LOW);   // DOWN TURN OFF
   digitalWrite(yr4,LOW);
   delay(500);
@@ -62,19 +79,72 @@ void loop() {
  
  
  // Initilise and grip the egg 
- if (gripper_egg<1)
+ else  if (gripper_egg<3)
  { // timing to be tuned better 
   digitalWrite(yr3, LOW);   // DOWN TURN OFF
   digitalWrite(yr4,LOW);
   delay(1000);
-  digitalWrite(gr3, HIGH);  // inverse TURN ON
+  
+  digitalWrite(gr3, HIGH);  // inverse TURN ON gripping action
   digitalWrite(gr4, HIGH);
-  delay(4000);               // wait for a second
-  digitalWrite(gr3, LOW);  // REVERSE TURN OFF
+  delay(1000);               
+  digitalWrite(gr3, LOW);  // inverse turn off, stop gripping action
   digitalWrite(gr4, LOW);
-  delay(4000);               // wait for a second
- }
- 
+  delay(100);               
+  
+  // move back y upwards after gripping
+  if ( top_sensor<3)
+  digitalWrite(yr1, HIGH);  // upwards TURN ON
+  digitalWrite(yr2, HIGH);
+  delay(500);               
+  digitalWrite(yr1, LOW);  // upwards TURN off
+  digitalWrite(yr2, LOW);
+  delay(150);               
+   }
+   
+   // actions to be taken after the gripper has reached the top
+  if (top_sensor>3){ 
+  
+  // move the gripper to the center
+  if(gripper_center<3)
+ { digitalWrite(xr1, HIGH);   // RIGHT TURN ON  
+  digitalWrite(xr2,HIGH);
+  delay(8000);               //
+  digitalWrite(xr1, LOW);   //  TURN OFF
+  digitalWrite(xr2,LOW);
+  delay(200);
+ } 
+  //code to move the egg tray down
+  else 
+  {
+  digitalWrite(yr3, HIGH);   // DOWN TURN ON  
+  digitalWrite(yr4,HIGH);
+  delay(400);               //
+  digitalWrite(yr3, LOW);   // DOWN TURN OFF
+  digitalWrite(yr4,LOW);
+  delay(200);
+  }
+  // conveyor on
+  
+  /* ungrip
+  else if(con_start>3)
+  {digitalWrite(gr1, HIGH);  // inverse TURN ON gripping action
+  digitalWrite(gr2, HIGH);
+  delay(8000);               
+  digitalWrite(gr1, LOW);  // inverse turn off, stop gripping action
+  digitalWrite(gr2, LOW);
+  delay(4000);} */
+  
+  // move back up
+  if(top_sensor<3)
+  {
+   digitalWrite(yr1, HIGH);  // upwards TURN ON
+  digitalWrite(yr2, HIGH);
+  delay(200);               
+  digitalWrite(yr1, LOW);  // upwards TURN off
+  digitalWrite(yr2, LOW);
+  delay(300);
+  }
  
  
   /*
@@ -86,3 +156,4 @@ void loop() {
   delay(100);               // wait for a second
   */
 } 
+}

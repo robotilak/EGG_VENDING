@@ -21,10 +21,10 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-  digitalWrite(xr1, HIGH);   // FORWARD TURN ON  
+  digitalWrite(xr1, HIGH);   // RIGHT TURN ON  
   digitalWrite(xr2,HIGH);
   delay(4000);               //
-  digitalWrite(xr1, LOW);   // FORWARD TURN OFF
+  digitalWrite(xr1, LOW);   //  TURN OFF
   digitalWrite(xr2,LOW);
   delay(100);
   digitalWrite(xr3, HIGH);  // REVERSE TURN ON
