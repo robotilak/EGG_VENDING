@@ -21,16 +21,29 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-  digitalWrite(yr1, HIGH);   // FORWARD TURN ON  
+  yup();
+  delay(500);
+  ydown();
+  delay(1000);
+              
+}
+
+void yup()
+{
+  digitalWrite(yr1, HIGH);   // up TURN ON  
   digitalWrite(yr2,HIGH);
   delay(500);               //
-  digitalWrite(yr1, LOW);   // FORWARD TURN OFF
+  digitalWrite(yr1, LOW);   // up TURN OFF
   digitalWrite(yr2,LOW);
   delay(100);
-  digitalWrite(yr3, HIGH);  // REVERSE TURN ON
+}
+
+void ydown()
+{
+  digitalWrite(yr3, HIGH);  // down TURN ON
   digitalWrite(yr4, HIGH);
-  delay(500);               // wait for a second
-  digitalWrite(yr3, LOW);  // REVERSE TURN ON
+  delay(500);               
+  digitalWrite(yr3, LOW);  // down TURN ON
   digitalWrite(yr4, LOW);
-  delay(100);               // wait for a second
+  delay(100); 
 }

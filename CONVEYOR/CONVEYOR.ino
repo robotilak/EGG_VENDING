@@ -15,9 +15,17 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
+ 
+cy();
+delay(1000);
+}
+
+void cy()
+{
+  // cy for call();
   digitalWrite(cr1, HIGH);   // FORWARD TURN ON  
   delay(4000);               //
   digitalWrite(cr1, LOW);   // FORWARD TURN OFF
   delay(100);
-
 }
+

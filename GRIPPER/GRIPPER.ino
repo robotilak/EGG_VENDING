@@ -24,17 +24,31 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-  digitalWrite(gr1, HIGH);  // OUTER TURN ON
-  digitalWrite(gr2, HIGH);
-  delay(3000);               // wait for a second
-  digitalWrite(gr1, LOW);  // Outer TURN OFF
-  digitalWrite(gr2, LOW);
-  delay(100);               // wait for a second
-  digitalWrite(gr3, HIGH);   // invard TURN ON  
+grip();
+delay(1000);
+ungrip();
+delay(1000);
+ 
+}
+
+void grip()
+{
+   digitalWrite(gr3, HIGH);   // gripp TURN ON  
   digitalWrite(gr4,HIGH);
-  delay(3000);               //
-  digitalWrite(gr3, LOW);   // invard TURN OFF
+  delay(3000);               
+  digitalWrite(gr3, LOW);   // grip TURN OFF
   digitalWrite(gr4,LOW);
   delay(100);
-  
 }
+
+void ungrip()
+{
+  digitalWrite(gr1, HIGH);  // ungrip TURN ON
+  digitalWrite(gr2, HIGH);
+  delay(3000);               
+  digitalWrite(gr1, LOW);  // ungrip TURN OFF
+  digitalWrite(gr2, LOW);
+  delay(100);     
+}  
+
+

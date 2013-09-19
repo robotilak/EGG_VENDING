@@ -20,17 +20,28 @@ void setup() {
 }
 
 // the loop routine runs over and over again forever:
-void loop() {
+void loop() { 
+ xll();
+ delay(1000);
+ xrr();
+ delay(1000);
+ }
+void xrr()
+{
   digitalWrite(xr1, HIGH);   // RIGHT TURN ON  
   digitalWrite(xr2,HIGH);
   delay(4000);               //
   digitalWrite(xr1, LOW);   //  TURN OFF
   digitalWrite(xr2,LOW);
   delay(100);
-  digitalWrite(xr3, HIGH);  // REVERSE TURN ON
-  digitalWrite(xr4, HIGH);
-  delay(3000);               // wait for a second
-  digitalWrite(xr3, LOW);  // REVERSE TURN ON
-  digitalWrite(xr4, LOW);
-  delay(100);               // wait for a second
 }
+void xll()
+{ 
+  digitalWrite(xr3, HIGH);   // LEFT TURN ON  
+  digitalWrite(xr4,HIGH);
+  delay(4000);               //
+  digitalWrite(xr3, LOW);   //  LEFT OFF
+  digitalWrite(xr4,LOW);
+  delay(100);
+  }
+
