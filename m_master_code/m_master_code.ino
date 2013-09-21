@@ -20,7 +20,9 @@ int gr3 = 40; // gripper rev
 int gr4 = 38; 
 
 int cr1 = 23;// conveyor
-boolean grip_value = false , ungrip_value = false;
+boolean grip_value = false;
+boolean ungrip_value = false;
+boolean conveyor_value = false;
 ///////////////////////////////////////
 //global 
 int left_p_grip1=0;
@@ -35,6 +37,7 @@ int con_end1 = 0;
 float con_end =0.0;
 int con_start1 = 0;
 float con_start = 0.0;
+
 /////////////////////////////////////////
 
 // the setup routine runs once when you press reset:
@@ -88,7 +91,7 @@ void loop()
    top_sensor = top_sensor1 * (5.0 / 1023.0);
   Serial.println(top_sensor);
   // conveyor end
-   con_end1 = analogRead(A10); //left position gripper proximity sensor
+   con_end1 = analogRead(A1); //left position gripper proximity sensor
    con_end = con_end1 * (5.0 / 1023.0);
   Serial.println(con_end);   
   
@@ -101,7 +104,7 @@ void loop()
 
 //PROGRAM//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// 1st half
-if (gripper_center<3)
+if (gripper_center<3 && left_p_grip>3)
 {
   while(gripper_egg>3 && left_p_grip>3)
   {
@@ -113,7 +116,7 @@ if (gripper_center<3)
   while(gripper_egg<3 && top_sensor<3)
   {
     grip();
-    delay(1000);
+    delay(100);
     update();
     if(grip_value = true)
     break;
@@ -121,57 +124,83 @@ if (gripper_center<3)
   while ( top_sensor<3 && gripper_center<3)
   {
     yup();
-    delay(1000);
+    delay(100);
     update();
   }
   while(top_sensor>3 && gripper_center<3)
   {
     xrr();
-    delay(1000);
+    delay(100);
     update();
   }
    
 }
 
-delay(4000);
+delay(100);
 /// 2nd half
 if(con_end<3 && gripper_center>3)
 {
   while(con_start<3 && gripper_egg<3)
   {
-    ydown();
-    delay(1000);
+    ydown1();
+    delay(100);
     update();
   }
   while (con_start>3 && gripper_center>3)//gripper_egg<3)
   {
     ungrip();
-    delay(1000);
+    delay(100);
     update();
-   // break;
+    // break;
    if(ungrip_value == true)
    break;
   }
-  while(con_end<3 && con_start>3)
+  while(con_start>3 && gripper_center>3 && con_end<3 )
   {
-    cy();
-    delay(1000);
-    update();
+  cy();
+  delay(100);
+  update();
+  if (conveyor_value == true)
+  break;
   }
 }
+// 127.0.0.1
 
-
+if (left_p_grip<3 && gripper_egg>3)
+{
+ while (top_sensor<3 && left_p_grip<3)
+ {
+   yup();
+   delay(100);
+   update();
+   delay(100);
+   break;
+ }
 }
+
+while (top_sensor>3 && left_p_grip<3)
+ {
+   
+   if (left_p_grip<3 && gripper_egg>3)
+   {xll();
+   delay(100);
+   update();
+   }
+   update();
+   delay(100);
+   break;
+ }
+
+}// end prog
+
 //FUNCTIONS//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void n()
-{ delay(10000);
-} 
 // conveyor movement
 void cy()
 {
   // cy for call();
+  conveyor_value = true;
   digitalWrite(cr1, HIGH);   // FORWARD TURN ON  
-  delay(4000);               //
+  delay(10000);               //
   digitalWrite(cr1, LOW);   // FORWARD TURN OFF
   delay(100);
 }
@@ -196,7 +225,7 @@ void ungrip()
   delay(10000);               
   digitalWrite(gr1, LOW);  // ungrip TURN OFF
   digitalWrite(gr2, LOW);
-  delay(100);     
+  delay(10);     
 }  
 
 // x axis movement
@@ -224,10 +253,10 @@ void yup()
 {
   digitalWrite(yr1, HIGH);   // up TURN ON  
   digitalWrite(yr2,HIGH);
-  delay(500);               //
+  delay(400);               //
   digitalWrite(yr1, LOW);   // up TURN OFF
   digitalWrite(yr2,LOW);
-  delay(100);
+  delay(300);
   return;
 }
 
@@ -235,7 +264,26 @@ void ydown()
 {
   digitalWrite(yr3, HIGH);  // down TURN ON
   digitalWrite(yr4, HIGH);
-  delay(200);               
+  delay(100);               
+  digitalWrite(yr3, LOW);  // down TURN ON
+  digitalWrite(yr4, LOW);
+  delay(400);
+}
+void yup1()
+{
+  digitalWrite(yr1, HIGH);   // up TURN ON  
+  digitalWrite(yr2,HIGH);
+  delay(2200);               //
+  digitalWrite(yr1, LOW);   // up TURN OFF
+  digitalWrite(yr2,LOW);
+  delay(300);
+  return;
+}
+void ydown1()
+{
+  digitalWrite(yr3, HIGH);  // down TURN ON
+  digitalWrite(yr4, HIGH);
+  delay(400);               
   digitalWrite(yr3, LOW);  // down TURN ON
   digitalWrite(yr4, LOW);
   delay(700);
