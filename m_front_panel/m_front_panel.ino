@@ -1,5 +1,5 @@
 int pulsePin = 7;// digital read coin
-int resetPin = 9; 
+int resetPin = 9; // 
 unsigned long duration = 0;// reads coin duration pulse 
 unsigned long reset = 0;
  
@@ -7,7 +7,7 @@ void setup()
 {
   pinMode(pulsePin, INPUT);
   reset = pulseIn(resetPin, HIGH);
-  duration = pulseIn(pulsePin, HIGH);  
+  duration = pulseIn(pulsePin, HIGH);// this for the   
   Serial.begin(9600);
 }
  
@@ -15,90 +15,110 @@ void loop()
 
 {
   //Clears the LCD and displays the Welcome Note
-  clearLCD();
-  clearLCD();
-  Serial.write(" *** Welcome to the Egg Vending Machine by CPDO & VIT *** ");
-  delay(100);
-  Serial.print(" *** Welcome to the Egg Vending Machine by CPDO & VIT *** ");
-  clearLCD();
-  delay(10000);
-  do 
-  { 
-   mainloop();
-   Serial.end();
-  }
-  while(reset>0);
+ clearlcd();
+ Serial.print("Welcome ");
+ delay(5000);
+ Serial.println("4");      // prints another carriage return
+ 
+ clearlcd();
+ delay(100);
+ Serial.print("Vending Machine");
+ delay(5000);
+ Serial.println("4");      // prints another carriage return
+ 
+ clearlcd();
+ delay(100);
+ Serial.print("cc CPDO-VIT");
+ delay(2000);
+ Serial.println("4");      // prints another carriage return
+ 
+ clearlcd();
+ delay(100);
+ while(reset==0)
+ {
+ coin();
+ RFID();
+ nothing();
+ }
+ delay(2000);
+ update();
 }
   
 // Function Declarations //  
 
 // Declaration of the Sensing Loop //
-  void mainloop()
+void coin()
 {
  
-  if (duration > 0)
+  if (duration >0)
   {
-    for(int i=0;i<2;i++)
-    {
     digitalWrite(13,HIGH);  
+    delay(2000);
+    digitalWrite(13,LOW);
+    delay(200);
+    Serial.print("Payment Made");
+    Serial.println("4");      // prints another carriage return
+    delay(3000);
+    clearlcd();
+    Serial.print("Please Wait");
+    Serial.println("4");      // prints another carriage return
+    clearlcd();
+    delay(3000);
+    Serial.print("Kindly collet your tray");
+    Serial.println("4");      // prints another carriage return
+    clearlcd();
+    delay(5000);
+    reset=1;
+    
+    }
+}
+  
+void RFID()
+{if (Serial.available() >0)
+  {
+    digitalWrite(13,HIGH);  
+    delay(2000);
+    digitalWrite(13,LOW);
+    delay(100);
+    Serial.print("Credit validated");
+    delay(5000);
+    Serial.println("4");      // prints another carriage return
+    clearlcd();
+    Serial.print("Egg to dispense out");
+    delay(5000);
+    clearlcd();
+    Serial.println("4");      // prints another carriage return
+    reset=1;
+    
+   }
+}
+void nothing ()
+ {
+    clearlcd();
+    Serial.print("Use Coins or Card");
     delay(1000);
-    digitalWrite(13,LOW);
-    delay(100);
-    Serial.write("Your Credit has been validated");
-    Serial.print("Your Credit has been validated");
-    delay(100);
-    clearLCD();
-    Serial.write("Wait for the Eggs to dispense out");
-    Serial.print("Wait for the Eggs to dispense out");
-    clearLCD();
-    delay(100);
-    }
-  }
-  if (Serial.available() >0)
-  {
-    for(int i=0;i<2;i++)
-    {
-    digitalWrite(13,HIGH);  
-    delay(100);
-    digitalWrite(13,LOW);
-    delay(100);
-    Serial.write("Your Credit has been validated");
-      Serial.print("Your Credit has been validated");
-    delay(100);
-    clearLCD();
-    Serial.write("Wait for the Eggs to dispense out");
-    Serial.print("Wait for the Eggs to dispense out");
-    clearLCD();
-    delay(100);
-    }
-  }
-  else
-  {
-    clearLCD();
-    Serial.write("Use Coins or a Smart Card To Get the Eggs");
-    Serial.print("Use Coins or a Smart Card To Get the Eggs");
-    clearLCD();
+    Serial.println("4");      // prints another carriage return
+    clearlcd();
     delay(100);
   }  
-}
 
 
-
-// Declaration for Clearing the LCD
-void clearLCD()
+// Clearing LCD
+void clearline()
 {
-  Serial.write("\t");
-  delay(100);
-  Serial.write("\t");
-  delay(100);
-  Serial.write("\t");
-  Serial.write("\t");
-  Serial.write("\t");
-  Serial.write("\t");
-  Serial.write("\t");
-  Serial.write("\t");
-  Serial.write("\t");
-  Serial.write("\t");
+  Serial.print("                    ");// clear one line
 }
 
 
+void clearlcd()
+ { 
+   clearline();
+   clearline();
+   clearline();
+   clearline();
+  }
+
+void update()
+{
+  reset=0;
+}
